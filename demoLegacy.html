@@ -37,121 +37,70 @@ void main(){
 
 <script type="application/x-javascript">
 
-var nFPS = 60;
-var fRotateAngle = 0;
-
 function init() {
+    glutInit();
+    glutInitWindowSize(500, 500);
 	glClearColor(0.9,0.9,0.9,1);
+	glClear(GL_COLOR_BUFFER_BIT);
     return true;
 }
 function render() {
 
-	glClear(GL_COLOR_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	gluLookAt(0,0,1, 0,0,0, 0,1,0); //eye center up
+	gluLookAt(0,0,1, 0,0,0, 0,1,0);
 	
 	glPushMatrix();
-
-	glPushMatrix();
-	//TOP BAR
-	glTranslatef(0.44,0.5,0);
-	glScalef(1/2,1/16,0);
-	glBegin(GL_TRIANGLES);
-		glColor3f(0.5,0.5,0.5);
-		glVertex3f(-1,1,0);
-		glVertex3f(-1,-1,0);
-		glVertex3f(1,1,0);
-		glVertex3f(1,1,0);
-		glVertex3f(-1,-1,0);
-		glVertex3f(1,-1,0);
-	glEnd();
-	glPopMatrix();
-	
-	/*glPushMatrix();
-	//BOTTOM BAR
-	glTranslatef(0.69,-0.5,0);
-	glScalef(1/4,1/16,0);
-	glBegin(GL_TRIANGLES);
-		glColor3f(0.5,0.5,0.5);
-		glVertex3f(-1,1,0);
-		glVertex3f(-1,-1,0);
-		glVertex3f(1,1,0);
-		glVertex3f(1,1,0);
-		glVertex3f(-1,-1,0);
-		glVertex3f(1,-1,0);
-	glEnd();
-	glPopMatrix();*/
 	
 	glPushMatrix();
-	//WALL
-	glTranslatef(15/16,0,0);
-	glBegin(GL_LINES);
-		glColor3f(0,0,0);
-		glVertex3f(0,-1,0);
-		glVertex3f(0,1,0);
-	glEnd();
-	glPopMatrix();
-	
-	glTranslatef(0,1/2,0);
-	glRotatef(fRotateAngle,0,0,1); //animation
-	glTranslatef(0,-1/2,0);
-	glPushMatrix();
-	//TRIANGLE
-	glScalef(0.5,0.5,0);
+	glScalef(0.25,0.5,0.25);
 	glBegin(GL_TRIANGLES);
 		glColor3f(1,0,0);
-		glVertex3f(1,-1,0);
-		glVertex3f(0,1,0);
+		glVertex3f(-1,1,0);
 		glVertex3f(-1,-1,0);
+		glVertex3f(1,1,0);
+		glVertex3f(1,1,0);
+		glVertex3f(-1,-1,0);
+		glVertex3f(1,-1,0);
 	glEnd();
 	glPopMatrix();
 	
+	glTranslatef(0.25,0.5,0.0);
+	glRotatef(15,0,0,1);
+	
 	glPushMatrix();
-		glPushMatrix();
-			//TOP CIRCLE
-			glTranslatef(0,1/2,0);
-			glScalef(1/8,1/8,0);
-			var radius = 1;
-			glBegin(GL_TRIANGLE_STRIP);
-				glColor3f(1,0,0);
-				for(angle=0; angle<360; angle++){
-					glVertex3f(Math.sin(angle)*radius/2, Math.cos(angle)*radius/2, 0);
-					glVertex3f(Math.sin(angle)*radius, Math.cos(angle)*radius, 0);
-				}
-			glEnd();
-		glPopMatrix();
-	
-		glPushMatrix();
-			//BOTTOM CIRCLE
-			glTranslatef(0.5,-0.5,0);
-			glScalef(1/8,1/8,0);
-			glBegin(GL_TRIANGLE_STRIP);
-				glColor3f(1,0,0);
-				for(angle=0; angle<360; angle++){
-					glVertex3f(Math.sin(angle)*radius/2, Math.cos(angle)*radius/2, 0);
-					glVertex3f(Math.sin(angle)*radius, Math.cos(angle)*radius, 0);
-				}
-			glEnd();
-		glPopMatrix();
+	glTranslatef(0,-0.25,0);
+	glScalef(0.0625,0.25,0.0625);
+	glBegin(GL_TRIANGLES);
+		glColor3f(0,1,0);
+		glVertex3f(-1,1,0);
+		glVertex3f(-1,-1,0);
+		glVertex3f(1,1,0);
+		glVertex3f(1,1,0);
+		glVertex3f(-1,-1,0);
+		glVertex3f(1,-1,0);
+	glEnd();
 	glPopMatrix();
 	
+	glTranslatef(0,-0.5,0);
+	glRotatef(-30,0,0,1);
+	glTranslatef(0,-0.25,0);
+	glScalef(0.0625,0.25,0.0);
+	glBegin(GL_TRIANGLES);
+		glColor3f(0,0,1);
+		glVertex3f(-1,1,0);
+		glVertex3f(-1,-1,0);
+		glVertex3f(1,1,0);
+		glVertex3f(1,1,0);
+		glVertex3f(-1,-1,0);
+		glVertex3f(1,-1,0);
+	glEnd();
+	
 	glPopMatrix();
-}
-
-function timer(v){
-	fRotateAngle += 1;
-	glutPostRedisplay(); // trigger render function by sending redraw into message queue
-	glutTimerFunc(1000/nFPS,timer,v); // restart timer again
+	
 }
 
 function start() {
-	glutInit();
-    glutInitWindowSize(500, 500);
-	init(); 
-	glutDisplayFunc(render);
-	glutTimerFunc(100,timer,nFPS);
+	 init(); 
+	 glutDisplayFunc(render);
 }
 
 </script>
